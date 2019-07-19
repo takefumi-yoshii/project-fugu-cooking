@@ -24,11 +24,11 @@ const View: React.FC<Props> = props => (
 // ______________________________________________________
 //
 const Container: React.FC<Props> = props => {
-  const detectedBoundingBox = useSelector<StoreState, boolean>(
-    state => state.ui.visibleDetectedRect
+  const detectedBoundingBox = useSelector<StoreState, DOMRect | null>(
+    state => state.ui.detectedBoundingBox
   )
   if (!detectedBoundingBox) return <></>
-  return <View {...props} />
+  return <View videoScale={props.videoScale} boundingBox={detectedBoundingBox} />
 }
 // ______________________________________________________
 //

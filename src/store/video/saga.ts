@@ -86,8 +86,9 @@ function* watchDispose(): IterableIterator<any> {
       video: { stream }
     }: StoreState = yield select()
     if (stream !== null) {
-      const track = stream.getTracks()[0]
-      track.stop()
+      stream.getTracks().map(track => {
+        track.stop()
+      })
       yield put(creators.setVideoElement(null))
     }
   }

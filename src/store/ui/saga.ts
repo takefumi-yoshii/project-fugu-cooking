@@ -34,13 +34,13 @@ function* watchWindowResize(): IterableIterator<any> {
 function* watchLocationChange(): IterableIterator<any> {
   while (true) {
     yield take(LOCATION_CHANGE)
-    yield put(creators.closeMenu())
     yield put(creators.resetDetectedBoundingBox())
+    yield put(creators.closeMenu())
   }
 }
 // ______________________________________________________
 //
 export default function*() {
-  yield fork(watchLocationChange)
   yield fork(watchWindowResize)
+  yield fork(watchLocationChange)
 }
