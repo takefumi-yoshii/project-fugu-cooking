@@ -1,6 +1,6 @@
 import React from 'react'
 import DetectionView from '../common/detectionView'
-import Button from './button'
+import Additional from './additional'
 // ______________________________________________________
 //
 const View: React.FC = () => (
@@ -9,7 +9,7 @@ const View: React.FC = () => (
     titleIconSvgString={require('../assets/qr.svg')}
     currentDetectionAPI="BARCODE_DETECTION"
   >
-    <Button />
+    <Additional />
   </DetectionView>
 )
 // ______________________________________________________
