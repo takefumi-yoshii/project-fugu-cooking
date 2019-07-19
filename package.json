@@ -1,0 +1,49 @@
+{
+  "name": "project-fugu-cooking",
+  "version": "1.0.0",
+  "author": "Takepepe",
+  "license": "MIT",
+  "scripts": {
+    "dev": "parcel src/index.html watch",
+    "build": "parcel src/index.html",
+    "deploy": "firebase deploy",
+    "prettier": "prettier \"src/**/*.{ts,tsx}\" --write"
+  },
+  "dependencies": {
+    "@pixi/filter-dot": "^3.0.3",
+    "@pixi/filter-pixelate": "^3.0.3",
+    "connected-react-router": "^6.5.2",
+    "history": "^4.9.0",
+    "pixi.js": "^5.0.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
+    "react-svg-inline": "^2.1.1",
+    "redux": "^4.0.4",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-saga": "^1.0.5",
+    "reselect": "^4.0.0",
+    "styled-components": "^4.3.2",
+    "styled-media-query": "^2.1.2"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.1.1",
+    "@types/react-router-dom": "^4.3.4",
+    "@types/react-svg-inline": "^2.1.1",
+    "@types/redux": "^3.6.0",
+    "@types/redux-saga": "^0.10.5",
+    "@types/styled-components": "^4.1.18",
+    "parcel-bundler": "^1.12.3",
+    "parcel-plugin-inlinesvg": "^0.1.1",
+    "prettier": "^1.18.2",
+    "typescript": "^3.5.3"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true
+  }
+}

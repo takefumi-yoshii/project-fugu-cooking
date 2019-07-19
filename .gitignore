@@ -1,0 +1,8 @@
+*.log
+*.psd
+*.env.*
+.cache
+.firebaserc
+firebase.json
+node_modules
+dist
