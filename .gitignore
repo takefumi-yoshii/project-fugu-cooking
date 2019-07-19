@@ -2,6 +2,7 @@
 *.psd
 *.env.*
 .cache
+.firebase
 .firebaserc
 firebase.json
 node_modules
