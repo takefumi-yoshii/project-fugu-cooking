@@ -1,12 +1,14 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { StoreState } from '../../store'
+import { StoreState } from '../../../store'
 // ______________________________________________________
 //
 type Props = {
   boundingBox: DOMRect
   videoScale: number
 }
+// ______________________________________________________
+//
 const View: React.FC<Props> = props => (
   <div
     style={{

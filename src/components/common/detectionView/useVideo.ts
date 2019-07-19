@@ -1,9 +1,12 @@
-import { useMemo, useEffect, MutableRefObject } from 'react'
+import { useState, useMemo, useEffect, MutableRefObject } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import * as constants from '../../constants'
-import { StoreState, Dispatcher } from '../../store'
-import { setVideoElement, requireUserMedia } from '../../store/video/creators'
-import { CurrentVideoExperimentalAPI } from '../../store/video/reducer'
+import * as constants from '../../../constants'
+import { StoreState, Dispatcher } from '../../../store'
+import {
+  setVideoElement,
+  requireUserMedia
+} from '../../../store/video/creators'
+import { CurrentDetectionAPI } from '../../../store/video/reducer'
 // ______________________________________________________
 //
 const defaultConstraints: MediaStreamConstraints = {
@@ -13,9 +16,11 @@ const defaultConstraints: MediaStreamConstraints = {
   },
   audio: false
 }
+// ______________________________________________________
+//
 export function useVideo(
   videoRef: MutableRefObject<HTMLVideoElement | null>,
-  currentVideoExperimentalAPI: CurrentVideoExperimentalAPI
+  currentDetectionAPI: CurrentDetectionAPI
 ) {
   const dispatch = useDispatch<Dispatcher>()
   const playState = useSelector((store: StoreState) => store.video.playState)
@@ -26,19 +31,25 @@ export function useVideo(
     () => playState !== 'play' && !isDisabledUserMedia === null,
     [playState, isDisabledUserMedia]
   )
-  const videoScale = useMemo(() => {
-    if (!videoRef.current) return 0
-    return (
-      videoRef.current.getBoundingClientRect().width / constants.VIDEO_WIDTH
-    )
-  }, [videoRef.current, window.innerWidth])
+  const [videoScale, updateVideoScale] = useState(0)
+  useEffect(() => {
+    const onResize = () => {
+      if (!videoRef.current) return updateVideoScale(0)
+      const scale =
+        videoRef.current.getBoundingClientRect().width / constants.VIDEO_WIDTH
+      updateVideoScale(scale)
+    }
+    onResize()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
   useEffect(() => {
     if (videoRef.current !== null) {
       dispatch(setVideoElement(videoRef.current))
       dispatch(
         requireUserMedia({
           constraints: defaultConstraints,
-          currentVideoExperimentalAPI
+          currentDetectionAPI
         })
       )
     }

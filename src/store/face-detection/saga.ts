@@ -18,9 +18,9 @@ function* checkNativeAPI(): IterableIterator<any> {
 function* detectShape(): IterableIterator<any> {
   while (true) {
     const {
-      video: { element, currentVideoExperimentalAPI }
+      video: { element, currentDetectionAPI }
     }: StoreState = yield select()
-    if (currentVideoExperimentalAPI !== 'FACE_DETECTION') break
+    if (currentDetectionAPI !== 'FACE_DETECTION') break
     if (element !== null) {
       try {
         const faceDetector = new window.FaceDetector({
@@ -39,11 +39,11 @@ function* detectShape(): IterableIterator<any> {
 function* watchRequireUserMedia(): IterableIterator<any> {
   while (true) {
     const {
-      payload: { currentVideoExperimentalAPI }
+      payload: { currentDetectionAPI }
     }: ReturnType<typeof VideoCreators['onPlay']> = yield take(
       VideoTypes.ON_PLAY
     )
-    if (currentVideoExperimentalAPI === 'FACE_DETECTION') {
+    if (currentDetectionAPI === 'FACE_DETECTION') {
       yield fork(detectShape)
     }
   }

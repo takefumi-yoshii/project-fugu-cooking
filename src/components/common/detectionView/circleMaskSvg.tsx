@@ -1,21 +1,23 @@
 import React, { useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { StoreState } from '../../store'
+import { StoreState } from '../../../store'
 // ______________________________________________________
 //
+type ContainerProps = {
+  videoScale: number
+}
 type Props = {
+  width: number
+  height: number
   cx: number
   cy: number
   r: number
-}
-type ContainerProps = {
-  videoScale: number
 }
 // ______________________________________________________
 //
 const View: React.FC<Props> = props => (
   <svg
-    viewBox={`0 0 100% 100%`}
+    viewBox={`0 0 ${props.width} ${props.height}`}
     xmlns="http://www.w3.org/2000/svg"
     style={{
       width: '100%',
@@ -34,6 +36,14 @@ const Container: React.FC<ContainerProps> = props => {
   const detectedBoundingBox = useSelector<StoreState, DOMRect | null>(
     state => state.ui.detectedBoundingBox
   )
+  const width = useMemo(() => {
+    if (!detectedBoundingBox) return 0
+    return detectedBoundingBox.width
+  }, [detectedBoundingBox])
+  const height = useMemo(() => {
+    if (!detectedBoundingBox) return 0
+    return detectedBoundingBox.height
+  }, [detectedBoundingBox])
   const cx = useMemo(() => {
     if (!detectedBoundingBox) return 0
     const { left, width } = detectedBoundingBox
@@ -49,7 +59,7 @@ const Container: React.FC<ContainerProps> = props => {
     const { width } = detectedBoundingBox
     return width * 0.5 * props.videoScale
   }, [detectedBoundingBox, props.videoScale])
-  return <View cx={cx} cy={cy} r={r} />
+  return <View width={width} height={height} cx={cx} cy={cy} r={r} />
 }
 // ______________________________________________________
 //

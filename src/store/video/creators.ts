@@ -1,37 +1,44 @@
 import types from './types'
-import { PlayState, CurrentVideoExperimentalAPI } from './reducer'
+import { PlayState, CurrentDetectionAPI } from './reducer'
 // ______________________________________________________
 //
-export function requireUserMedia(payload: {
+export const requireUserMedia = (payload: {
   constraints: MediaStreamConstraints
-  currentVideoExperimentalAPI: CurrentVideoExperimentalAPI
-}) {
-  return { type: types.REQUIRE_USER_MEDIA, payload }
-}
-export function setVideoElement(element: HTMLVideoElement | null) {
-  return { type: types.SET_VIDEO_ELEMENT, payload: { element } }
-}
-export function setMediaStream(stream: MediaStream) {
-  return { type: types.SET_MEDIA_STREAM, payload: { stream } }
-}
-export function setIsDisabledUserMedia(flag: boolean) {
-  return { type: types.SET_IS_DISABLED_USER_MEDIA, payload: { flag } }
-}
-export function onCanPlay(payload: {
+  currentDetectionAPI: CurrentDetectionAPI
+}) => ({
+  type: types.REQUIRE_USER_MEDIA,
+  payload
+})
+export const setVideoElement = (element: HTMLVideoElement | null) => ({
+  type: types.SET_VIDEO_ELEMENT,
+  payload: { element }
+})
+export const setMediaStream = (stream: MediaStream) => ({
+  type: types.SET_MEDIA_STREAM,
+  payload: { stream }
+})
+export const setIsDisabledUserMedia = (flag: boolean) => ({
+  type: types.SET_IS_DISABLED_USER_MEDIA,
+  payload: { flag }
+})
+export const onCanPlay = (payload: {
   playState: PlayState
-  currentVideoExperimentalAPI: CurrentVideoExperimentalAPI
-}) {
-  return { type: types.ON_CAN_PLAY, payload }
-}
-export function onPlay(payload: {
+  currentDetectionAPI: CurrentDetectionAPI
+}) => ({
+  type: types.ON_CAN_PLAY,
+  payload
+})
+export const onPlay = (payload: {
   playState: PlayState
-  currentVideoExperimentalAPI: CurrentVideoExperimentalAPI
-}) {
-  return { type: types.ON_PLAY, payload }
-}
-export function onPause(payload: {
+  currentDetectionAPI: CurrentDetectionAPI
+}) => ({
+  type: types.ON_PLAY,
+  payload
+})
+export const onPause = (payload: {
   playState: PlayState
-  currentVideoExperimentalAPI: CurrentVideoExperimentalAPI
-}) {
-  return { type: types.ON_PAUSE, payload }
-}
+  currentDetectionAPI: CurrentDetectionAPI
+}) => ({
+  type: types.ON_PAUSE,
+  payload
+})

@@ -1,14 +1,14 @@
 import { fork, take, put, call, select } from 'redux-saga/effects'
 import { LOCATION_CHANGE } from 'connected-react-router'
 import { StoreState } from '../index'
-import { CurrentVideoExperimentalAPI } from './reducer'
+import { CurrentDetectionAPI } from './reducer'
 import * as creators from './creators'
 import types from './types'
 // ______________________________________________________
 //
 function* watchCanPlay(
   video: HTMLVideoElement,
-  currentVideoExperimentalAPI: CurrentVideoExperimentalAPI
+  currentDetectionAPI: CurrentDetectionAPI
 ) {
   yield call(
     (video: HTMLVideoElement) =>
@@ -17,15 +17,13 @@ function* watchCanPlay(
       }),
     video
   )
-  yield put(
-    creators.onCanPlay({ playState: 'canplay', currentVideoExperimentalAPI })
-  )
+  yield put(creators.onCanPlay({ playState: 'canplay', currentDetectionAPI }))
   video.play()
 }
 
 function* watchOnPlay(
   video: HTMLVideoElement,
-  currentVideoExperimentalAPI: CurrentVideoExperimentalAPI
+  currentDetectionAPI: CurrentDetectionAPI
 ) {
   yield call(
     (video: HTMLVideoElement) =>
@@ -34,12 +32,12 @@ function* watchOnPlay(
       }),
     video
   )
-  yield put(creators.onPlay({ playState: 'play', currentVideoExperimentalAPI }))
+  yield put(creators.onPlay({ playState: 'play', currentDetectionAPI }))
 }
 
 function* watchOnPause(
   video: HTMLVideoElement,
-  currentVideoExperimentalAPI: CurrentVideoExperimentalAPI
+  currentDetectionAPI: CurrentDetectionAPI
 ) {
   yield call(
     (video: HTMLVideoElement) =>
@@ -48,9 +46,7 @@ function* watchOnPause(
       }),
     video
   )
-  yield put(
-    creators.onPause({ playState: 'pause', currentVideoExperimentalAPI })
-  )
+  yield put(creators.onPause({ playState: 'pause', currentDetectionAPI }))
 }
 
 async function getUserMedia(constraints?: MediaStreamConstraints) {
@@ -67,16 +63,16 @@ function* watchRequiredUserMedia(): IterableIterator<any> {
     try {
       if (element !== null) {
         const {
-          payload: { constraints, currentVideoExperimentalAPI }
+          payload: { constraints, currentDetectionAPI }
         }: ReturnType<typeof creators['requireUserMedia']> = yield take(
           types.REQUIRE_USER_MEDIA
         )
         const stream: MediaStream = yield call(getUserMedia, constraints)
         yield put(creators.setMediaStream(stream))
         element.srcObject = stream
-        yield fork(watchCanPlay, element, currentVideoExperimentalAPI)
-        yield fork(watchOnPlay, element, currentVideoExperimentalAPI)
-        yield fork(watchOnPause, element, currentVideoExperimentalAPI)
+        yield fork(watchCanPlay, element, currentDetectionAPI)
+        yield fork(watchOnPlay, element, currentDetectionAPI)
+        yield fork(watchOnPause, element, currentDetectionAPI)
       }
     } catch (err) {
       yield put(creators.setIsDisabledUserMedia(true))

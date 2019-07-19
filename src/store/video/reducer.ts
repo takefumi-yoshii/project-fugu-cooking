@@ -4,7 +4,7 @@ import { Actions } from '../actions'
 //
 export type PlayState = 'canplay' | 'play' | 'pause' | null
 
-export type CurrentVideoExperimentalAPI =
+export type CurrentDetectionAPI =
   | 'BARCODE_DETECTION'
   | 'TEXT_DETECTION'
   | 'FACE_DETECTION'
@@ -14,7 +14,7 @@ type State = {
   element: HTMLVideoElement | null
   stream: MediaStream | null
   playState: PlayState
-  currentVideoExperimentalAPI: CurrentVideoExperimentalAPI
+  currentDetectionAPI: CurrentDetectionAPI
   isDisabledUserMedia: boolean | null
 }
 // ______________________________________________________
@@ -23,7 +23,7 @@ export const initialStateFactory = (injects?: Partial<State>): State => ({
   element: null,
   stream: null,
   playState: null,
-  currentVideoExperimentalAPI: null,
+  currentDetectionAPI: null,
   isDisabledUserMedia: null,
   ...injects
 })
@@ -36,7 +36,7 @@ export default (
     case 'VIDEO_REQUIRE_USER_MEDIA':
       return {
         ...state,
-        currentVideoExperimentalAPI: action.payload.currentVideoExperimentalAPI
+        currentDetectionAPI: action.payload.currentDetectionAPI
       }
     case 'VIDEO_SET_VIDEO_ELEMENT':
       return { ...state, element: action.payload.element }
