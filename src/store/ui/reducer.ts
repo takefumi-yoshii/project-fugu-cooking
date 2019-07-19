@@ -39,6 +39,8 @@ export default (
       const { detectedFace } = action.payload
       if (!detectedFace) return state
       return { ...state, detectedBoundingBox: detectedFace.boundingBox }
+    case 'RESET_DETECTED_BOUNDING_BOX':
+        return { ...state, detectedBoundingBox: null }
     default:
       return state
   }

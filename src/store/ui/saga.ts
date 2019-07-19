@@ -35,6 +35,7 @@ function* watchLocationChange(): IterableIterator<any> {
   while (true) {
     yield take(LOCATION_CHANGE)
     yield put(creators.closeMenu())
+    yield put(creators.resetDetectedBoundingBox())
   }
 }
 // ______________________________________________________

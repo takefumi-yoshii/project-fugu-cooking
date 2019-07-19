@@ -10,3 +10,6 @@ export const onResizeWindow = (payload: {
   innerWidth: number
   innerHeight: number
 }) => ({ type: types.ON_RESIZE_WINDOW, payload })
+export const resetDetectedBoundingBox = () => ({
+  type: types.RESET_DETECTED_BOUNDING_BOX
+})
